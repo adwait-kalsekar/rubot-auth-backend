@@ -75,6 +75,8 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     avatar = await uploadToCloudinary(avatarFilePath);
   }
 
+  let profileUser;
+
   try {
     const user = await User.create({
       fullName,
@@ -86,6 +88,8 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     const createdUser = await User.findById(user._id).select(
       "-password -refreshToken",
     );
+
+    profileUser = createdUser;
 
     if (!createdUser) {
       throw new ApiError(500, "Could not register User");
@@ -103,7 +107,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
       throw new ApiError(500, "Could not create user profile");
     }
 
-    res
+    return res
       .status(201)
       .json(
         new ApiResponse(
@@ -114,6 +118,10 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
       );
   } catch (error) {
     logger.error("Could not register User: ", error);
+
+    if (profileUser) {
+      await User.findByIdAndDelete(profileUser._id);
+    }
 
     if (avatar) {
       await deleteFromCloudinary(avatar.public_id);
@@ -178,7 +186,7 @@ const logoutUser = asyncHandler(async (req: Request, res: Response) => {
     { new: true },
   );
 
-  res
+  return res
     .status(200)
     .clearCookie("accessToken", options)
     .clearCookie("refreshToken", options)
@@ -213,7 +221,7 @@ const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
       user.id,
     );
 
-    res
+    return res
       .status(200)
       .cookie("accessToken", accessToken, options)
       .cookie("refreshToken", newRefreshToken, options)
@@ -227,4 +235,20 @@ const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
   } catch (error) {}
 });
 
-export { registerUser, loginUser, logoutUser, refreshAccessToken };
+const getLoggedInUser = asyncHandler(async (req: Request, res: Response) => {
+  const user = req.user;
+
+  if (!user) {
+    throw new ApiError(404, "Invalid Token");
+  }
+
+  return res.status(200).json(new ApiResponse(200, user, "User Details"));
+});
+
+export {
+  registerUser,
+  loginUser,
+  logoutUser,
+  refreshAccessToken,
+  getLoggedInUser,
+};

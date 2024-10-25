@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 
 import ApiError from "../utils/ApiError";
+import logger from "../utils/logger";
 
 dotenv.config();
 
@@ -36,7 +37,9 @@ const errorHandler = (
     ...(process.env.NODE_ENV === "development" ? { stack: error.stack } : {}),
   };
 
-  res.status(error.statusCode).json(response);
+  logger.error(error.message);
+
+  return res.status(error.statusCode).json(response);
 };
 
 export default errorHandler;

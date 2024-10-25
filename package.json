@@ -1,7 +1,7 @@
 {
-  "name": "express_starter",
+  "name": "rubot-auth-backend",
   "version": "1.0.0",
-  "description": "Backend Starter Kit using NodeJS, ExpressJS and Typescript",
+  "description": "Authentication Service for the RUbot Application",
   "main": "src/index.ts",
   "type": "module",
   "scripts": {
