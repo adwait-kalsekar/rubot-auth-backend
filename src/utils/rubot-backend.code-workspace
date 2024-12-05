@@ -1,0 +1,14 @@
+{
+  "folders": [
+	{
+		"path": "../.."
+	},
+	{
+		"path": "../../../rubot-chat-backend"
+	},
+	{
+		"path": "../../../rubot-genai-backend"
+	}
+],
+  "settings": {}
+}

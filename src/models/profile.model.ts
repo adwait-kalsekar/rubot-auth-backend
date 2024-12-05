@@ -11,6 +11,14 @@ const profileSchema = new Schema(
       type: String,
       default: null,
     },
+    isStudent: {
+      type: Boolean,
+      default: false,
+    },
+    canvasApiKey: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: true,
