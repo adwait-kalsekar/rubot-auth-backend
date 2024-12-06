@@ -107,15 +107,15 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
       throw new ApiError(500, "Could not create user profile");
     }
 
-    return res
-      .status(201)
-      .json(
-        new ApiResponse(
-          201,
-          validatedUser,
-          "User Profile created successfully",
-        ),
-      );
+    return res.status(201).json(
+      new ApiResponse(
+        201,
+        {
+          username: validatedUser.username,
+        },
+        "User Profile created successfully",
+      ),
+    );
   } catch (error) {
     logger.error("Could not register User: ", error);
 
