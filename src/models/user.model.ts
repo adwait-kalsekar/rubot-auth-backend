@@ -24,6 +24,7 @@ interface IUser extends Document {
   email: string;
   username: string;
   password: string;
+  role: "user" | "admin" | "super_admin";
   refreshToken: string;
   checkPassword: (password: string) => Promise<boolean>;
   generateAccessToken: () => string;
@@ -57,6 +58,11 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: [true, "Password is Required"],
+    },
+    role: {
+      type: String,
+      required: [true, "User Role is required"],
+      default: "user",
     },
     refreshToken: {
       type: String,

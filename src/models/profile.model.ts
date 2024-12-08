@@ -14,10 +14,11 @@ const profileSchema = new Schema(
     isStudent: {
       type: Boolean,
       default: false,
+      required: true,
     },
     canvasApiKey: {
       type: String,
-      required: false,
+      default: null,
     },
   },
   {

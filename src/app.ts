@@ -8,6 +8,7 @@ import { CORS_ORIGIN } from "./constants";
 import logger from "./utils/logger";
 import healthCheckRouter from "./routes/healthCheck.route";
 import userRouter from "./routes/user.route";
+import profileRouter from "./routes/profile.route";
 import errorHandler from "./middlewares/error.middleware";
 
 // CONFIGS
@@ -51,6 +52,7 @@ app.use(express.static("public"));
 
 // ROUTES
 app.use("/api/v1/health", healthCheckRouter);
+app.use("/api/v1/profile", profileRouter);
 app.use("/api/v1/users", userRouter);
 
 // Error Handler

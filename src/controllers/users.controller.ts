@@ -82,6 +82,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
       fullName,
       username: username.toLowerCase(),
       email,
+      role: "user",
       password,
     });
 
