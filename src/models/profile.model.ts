@@ -20,6 +20,10 @@ const profileSchema = new Schema(
       type: String,
       default: null,
     },
+    credits: {
+      type: Number,
+      default: 5,
+    },
   },
   {
     timestamps: true,
