@@ -20,6 +20,7 @@ const errorHandler: ErrorRequestHandler = (
     // Handle Zod validation errors
     const statusCode = 400;
     const message = "Validation Error";
+    console.log(err);
     error = new ApiError(statusCode, message, error?.errors || [], err.stack);
   }
 

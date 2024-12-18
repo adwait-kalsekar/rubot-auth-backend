@@ -142,7 +142,7 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
   });
 
   if (!user) {
-    throw new ApiError(404, "Invalid Credentials");
+    throw new ApiError(401, "Invalid Credentials");
   }
 
   const isPasswordValid = await user.checkPassword(password);

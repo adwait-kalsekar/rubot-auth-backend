@@ -22,7 +22,7 @@ const profileSchema = new Schema(
     },
     credits: {
       type: Number,
-      default: 5,
+      default: 10,
     },
   },
   {
